@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import END
+from tkinter import messagebox
 
 from password_generator import PasswordGenerator
 
 # Create Screen
 root = tk.Tk()
 root.title("Password Manager")
-root.config(pady=20, padx=50)
+root.config(pady=50, padx=50)
 confirm_add = None
 
 # Create the canvas for the logo
@@ -78,6 +79,7 @@ tk.Button(text='Add', width=42, master=root, command=pop_up).grid(row=4, column=
 
 entry_website = tk.Entry(width=50, master=root)
 entry_website.grid(row=1, column=1, columnspan=2, sticky='w', pady=2)
+entry_website.focus()
 entry_username = tk.Entry(width=50, master=root)
 entry_username.grid(row=2, column=1, columnspan=2, sticky='w', pady=2)
 entry_password = tk.Entry(width=30, master=root)
