@@ -1,4 +1,5 @@
 import tkinter as tk
+import pyperclip
 from tkinter import END
 from tkinter import messagebox
 
@@ -20,6 +21,7 @@ canvas.grid(row=0, column=1)
 def pw_generate():
     my_pw_generator = PasswordGenerator()
     pw = my_pw_generator.generate()
+    pyperclip.copy(pw)
     entry_password.delete(0, END)
     entry_password.insert(0, pw)
 
