@@ -48,11 +48,11 @@ def pop_up():
     pop_up_website = entry_website.get()
     pop_up_username = entry_username.get()
     pop_up_password = entry_password.get()
+    message = f'Email: {pop_up_username}\nPassword: {pop_up_password}\nDo you wish to proceed?'
     if pop_up_password == '' or pop_up_website == '' or pop_up_username == '':
         tk.messagebox.showerror(title='Oops', message="Please don't leave any fields empty.")
     else:
-        res = tk.messagebox.askokcancel(title=pop_up_website, message=f'Email: {pop_up_username}\nPassword: '
-                                                                      f'{pop_up_password}\nConfirm add')
+        res = tk.messagebox.askokcancel(title=pop_up_website, message=message)
         if res:
             pw_yes_button()
 
