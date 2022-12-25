@@ -51,14 +51,21 @@ def pop_up():
     pop_up_website = entry_website.get()
     pop_up_username = entry_username.get()
     pop_up_password = entry_password.get()
-    confirm_add = tk.Toplevel(root, padx=13, pady=20)
-    confirm_add.minsize(width=10, height=100)
-    confirm_add.title(pop_up_website)
-    tk.Label(confirm_add, text=f'Email: {pop_up_username}').grid(row=0, column=0, sticky='w')
-    tk.Label(confirm_add, text=f'Password: {pop_up_password}').grid(row=1, column=0, sticky='w')
-    tk.Label(confirm_add, text='Confirm add').grid(row=2, column=0, sticky='w')
-    tk.Button(confirm_add, text='No', width=10, command=confirm_add.destroy).grid(row=3, column=1, padx=10, pady=10)
-    tk.Button(confirm_add, text='Yes', width=10, command=pw_yes_button).grid(row=3, column=2, padx=10, pady=10)
+    if pop_up_password == '' or pop_up_website == '' or pop_up_username == '':
+        warning = tk.Toplevel(root, padx=15, pady=15)
+        warning.minsize(width=10, height=10)
+        warning.title('Oops')
+        tk.Label(warning, text="Please don't leave any fields empty.").grid(row=2, column=0, sticky='w')
+        tk.Button(warning, text='OK', width=10, command=warning.destroy).grid(row=3, column=2, padx=10, pady=10)
+    else:
+        confirm_add = tk.Toplevel(root, padx=15, pady=15)
+        confirm_add.minsize(width=10, height=100)
+        confirm_add.title(pop_up_website)
+        tk.Label(confirm_add, text=f'Email: {pop_up_username}').grid(row=0, column=0, sticky='w')
+        tk.Label(confirm_add, text=f'Password: {pop_up_password}').grid(row=1, column=0, sticky='w')
+        tk.Label(confirm_add, text='Confirm add').grid(row=2, column=0, sticky='w')
+        tk.Button(confirm_add, text='No', width=10, command=confirm_add.destroy).grid(row=3, column=1, padx=10, pady=10)
+        tk.Button(confirm_add, text='Yes', width=10, command=pw_yes_button).grid(row=3, column=2, padx=10, pady=10)
 
 
 # Create widgets for buttons, labels and entry
