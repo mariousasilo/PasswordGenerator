@@ -8,7 +8,6 @@ from password_generator import PasswordGenerator
 root = tk.Tk()
 root.title("Password Manager")
 root.config(pady=50, padx=50)
-confirm_add = None
 
 # Create the canvas for the logo
 logo = tk.PhotoImage(file='logo.png')
@@ -36,37 +35,26 @@ def pw_registration(**kwargs):
 
 # Perform function by clicking 'Yes' button
 def pw_yes_button():
-    global confirm_add
     add_website = entry_website.get()
     add_username = entry_username.get()
     add_password = entry_password.get()
     pw_registration(website=add_website, username=add_username, password=add_password)
-    confirm_add.destroy()
     entry_password.delete(0, END)
     entry_website.delete(0, END)
 
 
 # Create confirmation pop-up window
 def pop_up():
-    global confirm_add
     pop_up_website = entry_website.get()
     pop_up_username = entry_username.get()
     pop_up_password = entry_password.get()
     if pop_up_password == '' or pop_up_website == '' or pop_up_username == '':
-        warning = tk.Toplevel(root, padx=15, pady=15)
-        warning.minsize(width=10, height=10)
-        warning.title('Oops')
-        tk.Label(warning, text="Please don't leave any fields empty.").grid(row=2, column=0, sticky='w')
-        tk.Button(warning, text='OK', width=10, command=warning.destroy).grid(row=3, column=2, padx=10, pady=10)
+        tk.messagebox.showerror(title='Oops', message="Please don't leave any fields empty.")
     else:
-        confirm_add = tk.Toplevel(root, padx=15, pady=15)
-        confirm_add.minsize(width=10, height=100)
-        confirm_add.title(pop_up_website)
-        tk.Label(confirm_add, text=f'Email: {pop_up_username}').grid(row=0, column=0, sticky='w')
-        tk.Label(confirm_add, text=f'Password: {pop_up_password}').grid(row=1, column=0, sticky='w')
-        tk.Label(confirm_add, text='Confirm add').grid(row=2, column=0, sticky='w')
-        tk.Button(confirm_add, text='No', width=10, command=confirm_add.destroy).grid(row=3, column=1, padx=10, pady=10)
-        tk.Button(confirm_add, text='Yes', width=10, command=pw_yes_button).grid(row=3, column=2, padx=10, pady=10)
+        res = tk.messagebox.askokcancel(title=pop_up_website, message=f'Email: {pop_up_username}\nPassword: '
+                                                                      f'{pop_up_password}\nConfirm add')
+        if res:
+            pw_yes_button()
 
 
 # Create widgets for buttons, labels and entry
