@@ -44,16 +44,19 @@ def pop_up():
             with open(file='password.json') as file:
                 data = json.load(file)
                 data.update(new_data)
-        except:
+        except FileNotFoundError:
             with open(file='password.json', mode='w') as file:
-                json.dump(json.loads('{}'), file, indent=4)
-            with open(file='password.json') as file:
-                data = json.load(file)
-                data.update(new_data)
-        with open(file='password.json', mode='w') as file:
-            json.dump(data, file, indent=4)
-            entry_password.delete(0, END)
-            entry_website.delete(0, END)
+                json.dump(new_data, file, indent=4)
+        except json.decoder.JSONDecodeError:
+            with open(file='password.json', mode='w') as file:
+                json.dump(new_data, file, indent=4)
+        else:
+            with open(file='password.json', mode='w') as file:
+                json.dump(data, file, indent=4)
+                entry_password.delete(0, END)
+                entry_website.delete(0, END)
+        entry_website.delete(0, END)
+        entry_password.delete(0, END)
 
 
 def search():
