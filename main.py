@@ -61,16 +61,22 @@ def pop_up():
 
 
 def search():
-    with open(file='password.json') as file:
-        data = json.load(file)
+    search_website = entry_website.get()
     try:
-        search_website = data[entry_website.get()]
-    except KeyError:
-        messagebox.showerror(title='Details Not Found', message=f'There is no {entry_website.get()} on file')
+        with open(file='password.json') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        messagebox.showerror(title='Error', message=f'File not found.')
+    except json.decoder.JSONDecodeError:
+        messagebox.showerror(title='Error', message=f'File not found.')
     else:
-        search_username = search_website['email']
-        search_password = search_website['password']
-        messagebox.showinfo(title=entry_website.get(), message=f'Email: {search_username}\nPassword: {search_password}')
+        if search_website in data:
+            search_username = data[search_website]['email']
+            search_password = data[search_website]['password']
+            messagebox.showinfo(title=entry_website.get(),
+                                message=f'Email: {search_username}\nPassword: {search_password}')
+        else:
+            messagebox.showerror(title='Details Not Found', message=f'There is no {search_website} on file')
 
 
 # Create widgets for buttons, labels and entry
