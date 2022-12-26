@@ -55,8 +55,9 @@ def pop_up():
                 json.dump(data, file, indent=4)
                 entry_password.delete(0, END)
                 entry_website.delete(0, END)
-        entry_website.delete(0, END)
-        entry_password.delete(0, END)
+        finally:
+            entry_website.delete(0, END)
+            entry_password.delete(0, END)
 
 
 def search():
